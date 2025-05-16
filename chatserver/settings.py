@@ -27,10 +27,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.100.148', 'localhost', '127.0.0.1']
 
+STATIC_URL = 'static/'
+
+LOGIN_URL = '/login/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',  # <-- 추가
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'chatserver.urls'
 
@@ -69,6 +76,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'chatserver.wsgi.application'
 
+ASGI_APPLICATION = 'chatserver.asgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -80,6 +89,11 @@ DATABASES = {
     }
 }
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
