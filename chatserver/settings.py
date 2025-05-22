@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9il(r5$o2=bqx@bi-=gxaw!&y()2(3!3@k3&-*x35-87h#@#_0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.219.110', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['yourIP', 'localhost', '127.0.0.1']
 
 STATIC_URL = 'static/'
 
@@ -36,7 +36,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',  # <-- 추가
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 ROOT_URLCONF = 'chatserver.urls'
 

@@ -7,25 +7,106 @@
         body {
             font-family: sans-serif;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column; /* 전체 페이지는 여전히 컬럼 방향으로 정렬 */
+            justify-content: flex-start; /* 상단부터 시작 */
+            align-items: center; /* 가운데 정렬 */
             min-height: 100vh;
             background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
-            position: relative; /* 부모 요소로 설정 */
         }
 
-        .container {
-            background-color: #fff;
-            padding: 40px;
+        .top-links {
+            display: flex;
+            justify-content: flex-end; /* 로그아웃 버튼을 오른쪽으로 */
+            width: 800px; /* 메인 콘텐츠 너비에 맞춤 */
+            max-width: 90%; /* 화면 크기에 따라 조절 */
+            margin-bottom: 10px;
+        }
+
+        .top-links a,
+        .top-links button {
+            background-color: #dc3545; /* 로그아웃 버튼 색상 변경 (예시) */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 100px;
+        }
+
+        .top-links a:hover,
+        .top-links button:hover {
+            background-color: #c82333;
+        }
+
+        /* Django 메시지 스타일 */
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 20px 0; /* 상단 간격 추가 */
+            width: 800px;
+            max-width: 90%;
+            text-align: center;
+        }
+        .messages li {
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            border: 1px solid transparent; /* 기본 테두리 */
+        }
+        .messages li.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+        .messages li.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+        .messages li.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-color: #bee5eb;
+        }
+
+
+        /* 메인 콘텐츠 레이아웃을 위한 Flexbox 컨테이너 */
+        .main-content {
+            display: flex; /* 자식 요소를 가로로 배치 */
+            gap: 20px; /* 컬럼 사이 간격 */
+            width: 800px; /* 전체 너비 설정 */
+            max-width: 90%; /* 반응형 */
+            background-color: #fff; /* 배경색 통일 */
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 400px;
-            margin-bottom: 20px;
         }
+
+        /* 왼쪽 컬럼 스타일 */
+        .left-column {
+            flex: 1; /* 남은 공간을 채우도록 함 (오른쪽보다 작게) */
+            padding: 20px;
+            border-right: 1px solid #eee; /* 구분선 */
+            text-align: left;
+            min-width: 180px; /* 최소 너비 설정 */
+        }
+
+        /* 오른쪽 컨테이너 스타일 (기존 .container 역할) */
+        .right-container {
+            flex: 2; /* 왼쪽보다 더 많은 공간을 차지 */
+            padding: 20px;
+            text-align: center; /* 기존 중앙 정렬 유지 */
+        }
+
 
         h1 {
             color: #333;
@@ -107,35 +188,47 @@
             background-color: #0056b3;
         }
 
-        .top-links {
-            display: flex;
-            justify-content: flex-start;
-            gap: 20px;
-            width: 400px; /* .container와 너비 맞추기 */
+        /* 추가된 사용자 정보 스타일 */
+        .user-section h3 {
+            color: #007bff;
             margin-bottom: 10px;
+            font-size: 1.2em;
         }
-
-        .top-links a,
-        .top-links button {
-            background-color: #007bff; /* 로그아웃 버튼 색상 */
+        .user-section p {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .user-section ul {
+            margin-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        .user-section li {
+            padding: 8px 0;
+            font-size: 0.95em;
+            color: #555;
+            border-bottom: none; /* 사용자 목록에서는 하단 선 제거 */
+        }
+        /* 방 삭제 버튼을 룸 링크 옆에 배치 */
+        .room-item-controls {
+            display: inline-block; /* 링크와 버튼을 한 줄에 배치 */
+            margin-left: 10px; /* 링크와의 간격 */
+        }
+        .room-item-controls button {
+            background-color: #dc3545; /* Bootstrap의 danger 색상 */
             color: white;
-            padding: 10px 15px;
+            padding: 5px 10px;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 4px;
+            font-size: 0.8em; /* 폰트 작게 */
             cursor: pointer;
             transition: background-color 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            min-width: 100px; /* 최소 너비 설정 */
+            vertical-align: middle; /* 세로 정렬 */
+        }
+        .room-item-controls button:hover {
+            background-color: #c82333;
         }
 
-        .top-links a:hover,
-        .top-links button:hover {
-            background-color: #5a6268;
-        }
     </style>
 </head>
 <body>
@@ -148,32 +241,64 @@
     </div>
     {% endif %}
 
-    <div class="container">
-        <h1>채팅방 목록</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
+    <div class="main-content">
         {% if user.is_authenticated %}
-            <p>환영합니다, {{ user.username }}님!</p>
-
-            <h2>사용 가능한 채팅방</h2>
-            <ul>
-                {% for room in rooms %}
-                    <li><a href="{% url 'chatroom' room_name=room.name %}">{{ room.name }}</a></li>
-                {% empty %}
-                    <li>아직 생성된 채팅방이 없습니다.</li>
-                {% endfor %}
-            </ul>
-
-            <h2>새로운 채팅방 만들기</h2>
-            <form method="post" action="{% url 'create_room' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">새로운 방 만들기</button>
-            </form>
-
-        {% else %}
-            <p>로그인 후에 채팅방 목록을 볼 수 있습니다.</p>
-            <a href="{% url 'login' %}" class="button-link">로그인</a>
+        <div class="left-column">
+            <div class="user-section">
+                <h3>가입된 사용자</h3> {# 제목을 "가입된 사용자"로 변경 #}
+                <p><strong>{{ user.username }}</strong> (본인)</p> {# 현재 로그인한 사용자 #}
+                <hr style="border-top: 1px solid #eee; margin: 15px 0;"> {# 구분선 추가 #}
+                <h4>다른 사용자들:</h4>
+                <ul>
+                    {% for other_user in users %}
+                        {% if other_user.username != user.username %} {# 본인 제외 #}
+                            <li>{{ other_user.username }}</li>
+                        {% endif %}
+                    {% empty %}
+                        <li>다른 사용자가 없습니다.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
         {% endif %}
+
+        <div class="right-container">
+            <h1>채팅방 목록</h1>
+
+            {% if user.is_authenticated %}
+                <p>환영합니다, {{ user.username }}님!</p>
+
+                <h2>사용 가능한 채팅방</h2>
+                <ul>
+                    {% for room in rooms %}
+                        <li>
+                            <a href="{% url 'chatroom' room_name=room.name %}">{{ room.name }}</a>
+                        </li>
+                    {% empty %}
+                        <li>아직 생성된 채팅방이 없습니다.</li>
+                    {% endfor %}
+                </ul>
+
+                <h2>새로운 채팅방 만들기</h2>
+                <form method="post" action="{% url 'create_room' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">새로운 방 만들기</button>
+                </form>
+
+            {% else %}
+                <p>로그인 후에 채팅방 목록을 볼 수 있습니다.</p>
+                <a href="{% url 'login' %}" class="button-link">로그인</a>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
