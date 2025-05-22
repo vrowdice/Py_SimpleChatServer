@@ -18,11 +18,21 @@
 
         .top-links {
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between; /* 양쪽 정렬 */
             gap: 20px;
-            width: 500px; /* .container와 너비 맞추기 */
-            margin-bottom: 20px; /* .container와의 간격 조정 */
+            width: 700px; /* .chat-container와 너비 맞추기 */
+            margin-bottom: 20px;
         }
+
+        .top-links .left-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .top-links .right-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
 
         .top-links a,
         .top-links button {
@@ -46,14 +56,53 @@
             background-color: #5a6268;
         }
 
-        .container {
+        /* 전체 채팅 컨테이너 (채팅창 + 사용자 목록) */
+        .chat-container {
+            display: flex;
             background-color: #fff;
-            padding: 40px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 700px; /* 전체 너비 설정 */
+            gap: 20px; /* 컬럼 사이 간격 */
+        }
+
+        /* 왼쪽 컬럼 (사용자 목록) */
+        .online-users-column {
+            flex: 1; /* 채팅창보다 작게 */
+            padding-right: 20px;
+            border-right: 1px solid #eee;
+            text-align: left;
+            min-width: 150px;
+        }
+
+        .online-users-column h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .online-users-column ul {
+            list-style: none;
+            padding: 0;
+            max-height: 400px; /* 스크롤을 위해 높이 제한 */
+            overflow-y: auto;
+        }
+
+        .online-users-column li {
+            padding: 5px 0;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+
+        /* 오른쪽 컬럼 (메시지 창) */
+        .chat-main-column {
+            flex: 2; /* 사용자 목록보다 넓게 */
             text-align: center;
-            width: 500px;
-            margin-bottom: 20px;
+            padding-left: 20px;
         }
 
         h1 {
@@ -63,7 +112,7 @@
             padding-bottom: 15px;
         }
 
-        .messages {
+        .messages-log { /* 기존 .messages에서 이름 변경 */
             list-style: none;
             padding: 0;
             margin-bottom: 20px;
@@ -76,92 +125,24 @@
             padding: 10px;
         }
 
-        .messages li {
+        .messages-log li {
             padding: 8px 12px;
             border-radius: 6px;
             margin-bottom: 5px;
             background-color: #e9ecef;
         }
 
-        .messages li.success {
+        /* 메시지 프레임워크 스타일 (여기서는 사용되지 않을 수 있지만 혹시 몰라 유지) */
+        .messages-log li.success {
             background-color: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
 
-        .messages li.error {
+        .messages-log li.error {
             background-color: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
-        }
-
-        p {
-            color: #495057;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            color: #343a40;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ced4da;
-            padding-bottom: 8px;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        ul li {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        ul li:last-child {
-            border-bottom: none;
-        }
-
-        ul li a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        ul li a:hover {
-            color: #0056b3;
-        }
-
-        div p {
-            margin-bottom: 0;
-            color: #6c757d;
-        }
-
-        form {
-            text-align: left;
-        }
-
-        .delete-room-button {
-            background-color: #dc3545; /* Bootstrap의 danger 색상 */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3);
-            margin-top: 20px;
-        }
-
-        .delete-room-button:hover {
-            background-color: #c82333;
-            transform: scale(1.05);
         }
 
         .chat-input-area {
@@ -193,6 +174,28 @@
             background-color: #0056b3;
         }
 
+        .delete-room-form {
+            margin-top: 30px;
+        }
+        .delete-room-button {
+            background-color: #dc3545; /* Bootstrap의 danger 색상 */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3);
+        }
+
+        .delete-room-button:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+
+        /* Reconnect Modal styles */
         .reconnect-modal {
             display: none;
             position: fixed;
@@ -203,11 +206,13 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0,0,0,0.5);
+            display: flex; /* Flexbox 추가 */
+            justify-content: center; /* 수평 중앙 정렬 */
+            align-items: center; /* 수직 중앙 정렬 */
         }
 
         .reconnect-modal-content {
             background-color: #fefefe;
-            margin: 10% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 90%;
@@ -215,6 +220,7 @@
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative; /* Close 버튼 위치 지정을 위해 */
         }
 
         .reconnect-button {
@@ -234,7 +240,9 @@
 
         .modal-close {
             color: #aaa;
-            float: right;
+            position: absolute; /* 절대 위치 */
+            top: 10px;
+            right: 15px;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
@@ -250,39 +258,56 @@
 </head>
 <body>
     <div class="top-links">
-        {% if user.is_authenticated %}
-        <form action="{% url 'logout' %}" method="post" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit">로그아웃</button>
-        </form>
-        <a href="{% url 'room_list' %}">채팅목록</a>
-        {% endif %}
-    </div>
-    <div class="container">
-        <h1>{{ room_name }}</h1>
-
-        <ul class="messages" id="chat-log">
-            {% if messages %}
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
+        <div class="left-buttons">
+            {% if user.is_authenticated %}
+            <a href="{% url 'room_list' %}">채팅방 목록</a>
             {% endif %}
-        </ul>
-
-        {% if user.is_authenticated %}
-        <div class="chat-input-area">
-            <input type="text" id="chat-message-input" class="chat-input" placeholder="메시지를 입력하세요...">
-            <button type="button" id="chat-message-submit" class="send-button">전송</button>
         </div>
-        {% else %}
-            <p>로그인 후에 채팅 기능을 이용할 수 있습니다.</p>
+        <div class="right-buttons">
+            {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">로그아웃</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <div class="chat-container">
+        {% if user.is_authenticated %}
+        <div class="online-users-column">
+            <h3>접속 중인 사용자</h3>
+            <ul id="online-users-list">
+                <li>(로딩 중...)</li>
+            </ul>
+        </div>
         {% endif %}
 
-        <h2 class="delete-room-heading">채팅방 삭제</h2>
-        <form method="post" action="{% url 'delete_room' room_name=room_name %}" onsubmit="return confirm('정말로 이 채팅방을 삭제하시겠습니까?');" class="delete-room-form">
-            {% csrf_token %}
-            <button type="submit" class="delete-room-button">채팅방 삭제</button>
-        </form>
+        <div class="chat-main-column">
+            <h1>{{ room_name }}</h1>
+
+            <ul class="messages-log" id="chat-log">
+                {% if messages %}
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                {% endif %}
+                </ul>
+
+            {% if user.is_authenticated %}
+            <div class="chat-input-area">
+                <input type="text" id="chat-message-input" class="chat-input" placeholder="메시지를 입력하세요...">
+                <button type="button" id="chat-message-submit" class="send-button">전송</button>
+            </div>
+            {% else %}
+                <p>로그인 후에 채팅 기능을 이용할 수 있습니다.</p>
+            {% endif %}
+
+            <h2 class="delete-room-heading">채팅방 삭제</h2>
+            <form method="post" action="{% url 'delete_room' room_name=room_name %}" onsubmit="return confirm('정말로 이 채팅방을 삭제하시겠습니까?');" class="delete-room-form">
+                {% csrf_token %}
+                <button type="submit" class="delete-room-button">채팅방 삭제</button>
+            </form>
+        </div>
     </div>
 
     <div id="reconnect-modal" class="reconnect-modal">
@@ -296,11 +321,12 @@
 
     <script>
         const roomName = encodeURIComponent("{{ room_name }}");
-        const username = "{{ username|escapejs }}";
+        const username = "{{ username|escapejs }}"; // 현재 로그인 사용자 이름
         const ws_scheme = window.location.protocol === "https:" ? "wss" : "ws";
         const ws_path = ws_scheme + '://' + window.location.host + '/ws/chat/' + roomName + '/';
 
         const chatLog = document.querySelector('#chat-log');
+        const onlineUsersList = document.querySelector('#online-users-list'); // 새로운 사용자 목록 ul
         const reconnectModal = document.getElementById('reconnect-modal');
         const reconnectButton = document.getElementById('reconnect-button');
         const modalClose = document.querySelector('.modal-close');
@@ -311,7 +337,7 @@
         let connectionAttempts = 0;
 
         function showReconnectModal() {
-            reconnectModal.style.display = "block";
+            reconnectModal.style.display = "flex"; // Flexbox로 중앙 정렬
             isReconnecting = true;
         }
 
@@ -334,37 +360,62 @@
 
             chatSocket.onmessage = function(e) {
                 const data = JSON.parse(e.data);
-                const message = data['message'];
-                const username = data['username'];
-                chatLog.innerHTML += `<li style="background-color: #e9ecef;"><strong>${username}:</strong> ${message}</li>`;
-                chatLog.scrollTop = chatLog.scrollHeight;
+                const messageType = data['type']; // 메시지 타입 확인
+
+                if (messageType === 'chat_message') {
+                    const message = data['message'];
+                    const senderUsername = data['username']; // 메시지를 보낸 사용자 이름
+                    chatLog.innerHTML += `<li style="background-color: #e9ecef;"><strong>${senderUsername}:</strong> ${message}</li>`;
+                    chatLog.scrollTop = chatLog.scrollHeight;
+                } else if (messageType === 'online_users_update') {
+                    const onlineUsers = data['online_users'];
+                    updateOnlineUsersList(onlineUsers);
+                }
             };
 
             chatSocket.onclose = function(e) {
-                console.error('Chat socket closed unexpectedly.');
-                if (e.code !== 1000) {
+                console.error('Chat socket closed unexpectedly.', e.code);
+                if (e.code !== 1000 && e.code !== 4001) { // 4001은 Unauthorized 코드, 재연결 시도 X
                     showReconnectModal();
                     setTimeout(attemptReconnect, reconnectInterval);
                     reconnectInterval = Math.min(reconnectInterval * 2, 30000);
+                } else if (e.code === 4001) {
+                    alert("로그인이 필요하거나 세션이 만료되었습니다.");
+                    window.location.href = "{% url 'home' %}"; // 로그인 페이지로 리다이렉트
                 }
             };
 
             chatSocket.onerror = function(error) {
                 console.error("WebSocket error:", error);
+                // 에러 발생 시 onclose가 호출되므로 여기서 추가적인 모달 표시는 필요 없음
             };
         }
 
         function attemptReconnect() {
-            if (isReconnecting) {
+            if (isReconnecting && chatSocket.readyState !== WebSocket.OPEN) { // 이미 연결되어 있지 않을 때만 재시도
                 console.log(`Reconnecting... (Attempt ${connectionAttempts + 1})`);
                 connectionAttempts++;
                 connectWebSocket();
             }
         }
 
+        function updateOnlineUsersList(users) {
+            onlineUsersList.innerHTML = ''; // 기존 목록 초기화
+            if (users.length === 0) {
+                onlineUsersList.innerHTML = '<li>아직 접속자가 없습니다.</li>';
+            } else {
+                users.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = user;
+                    onlineUsersList.appendChild(li);
+                });
+            }
+        }
+
         // 초기 연결
         connectWebSocket();
 
+        // 입력창 자동 포커스
         document.querySelector('#chat-message-input').focus();
         document.querySelector('#chat-message-input').onkeyup = function(e) {
             if (e.key === 'Enter') {
@@ -372,24 +423,33 @@
             }
         };
 
+        // 메시지 전송 버튼 클릭
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
+            const message = messageInputDom.value.trim(); // 앞뒤 공백 제거
 
-            if (chatSocket && chatSocket.readyState === 1) {
+            if (message === '') { // 빈 메시지 전송 방지
+                return;
+            }
+
+            if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
                 chatSocket.send(JSON.stringify({
                     'message': message
                 }));
-                messageInputDom.value = '';
+                messageInputDom.value = ''; // 전송 후 입력창 비우기
             } else {
-                alert("연결이 끊어진 상태입니다. 메시지를 보낼 수 없습니다.");
+                // 연결이 끊어진 경우 메시지 전송 시도 시 사용자에게 알림
+                alert("채팅 서버와 연결이 끊어진 상태입니다. 메시지를 보낼 수 없습니다. 다시 연결해 주세요.");
+                showReconnectModal(); // 모달 다시 표시
             }
         };
 
+        // 페이지 로드 시 스크롤 최하단으로
         window.onload = function() {
             chatLog.scrollTop = chatLog.scrollHeight;
         };
 
+        // 모달 관련 이벤트 리스너
         reconnectButton.onclick = function() {
             hideReconnectModal();
             attemptReconnect();
