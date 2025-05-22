@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from ip import MY_SECRET_IP_ADDRESS
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-9il(r5$o2=bqx@bi-=gxaw!&y()2(3!3@k3&-*x35-87h#@#_0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['YourIP', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [MY_SECRET_IP_ADDRESS, 'localhost', '127.0.0.1']
 
 STATIC_URL = 'static/'
 
